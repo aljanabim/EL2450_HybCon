@@ -18,4 +18,4 @@ tank_init_h1 = 0.1; % m
 % Lower Tank:
 tank_A2 = pi*(0.04445/2)^2; % m^2 (This value is given in the user's manual)
 tank_H2 = 0.25; % m
-tank_init_h2 = 0.1; 
+tank_init_h2 = 0.1;

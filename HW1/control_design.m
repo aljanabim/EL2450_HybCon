@@ -2,7 +2,7 @@
 % Hybrid and Embedded control systems
 % Homework 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+clc, clear
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Initialization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,25 +42,40 @@ Fd = c2d(F, Ts, 'ZOH');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Discrete Control design
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[b_cont,a_cont] = tfdata(G);
-[A_cont,B_cont,C_cont,D_cont] = tf2ss(cell2mat(b_cont), cell2mat(a_cont));
+% [b_cont,a_cont] = tfdata(G);
+% [A_cont,B_cont,C_cont,D_cont] = tf2ss(cell2mat(b_cont), cell2mat(a_cont));
+
+A = 1/Tau.*[-1 0; 1 -1/gamma_tank];
+B = [k_tank/Tau; 0];
+C = [0 1];
+D = [0];
+
+sys = ss(A,B,C,D);
 Ts = 4; % Sampling time
-Fd = c2d(G, Ts, 'ZOH');
-[b,a] = tfdata(Fd);
+Fd = c2d(sys, Ts, 'ZOH');
+Phi = Fd.A;
+Gamma = Fd.B;
+C_disc = Fd.C;
+% [b,a] = tfdata(Fd);   
 % Discretize the continous state space system, save it in state space form
-[Phi,Gamma,C,D] = tf2ss(cell2mat(b),cell2mat(a));
+% [Phi,Gamma,C,D] = tf2ss(cell2mat(b_cont),cell2mat(a_cont));
+% [Phi_,Gamma_,C_,D_] = tf2ss(cell2mat(b),cell2mat(a))
 
 % Observability and reachability
-Wc = [Gamma Phi*Gamma]
-Wo = [C ;C*Phi]
+Wc = [Gamma Phi*Gamma];
+Wo = [C ;C*Phi];
 
+closed_loop = minreal(G*F/(1+G*F));
+p_cont = pole(closed_loop);
+p_disc = exp(p_cont*Ts);
 % State feedback controller gain
-L = 1;
-% observer gain
-K = 1;
-% reference gain
-lr = 1;
 
+% observer gain
+L = acker(Phi,Gamma,p_disc(3:4));
+K = acker(Phi',C',p_disc(1:2))';
+Aa = [Phi-Gamma*L Gamma*L;zeros(2,2) Phi-K*C_disc];
+eig(Aa)
+lr = 1/(C*(eye(2)-Phi+Gamma*L)^-1*Gamma);
+Ba = [Gamma*lr; Gamma*lr]
 % augmented system matrices
-Aa = 1;
-Ba = 1;
+

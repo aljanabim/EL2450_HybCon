@@ -1,4 +1,4 @@
- function init_pend_three
+function init_pend_three
  
 global executionTime
 executionTime = 0.006; %executiontime for the controller

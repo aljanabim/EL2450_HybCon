@@ -1,2 +1,2 @@
 # EL2450_HybCon
-A message from Zahid
+Lab work for the course

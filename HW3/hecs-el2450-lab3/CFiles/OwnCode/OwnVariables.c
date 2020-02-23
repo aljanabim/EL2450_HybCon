@@ -13,4 +13,5 @@ float p;
 int controller;
 float angle_threshold;
 float distance_threshold;
+int flag_state=0;
 // here

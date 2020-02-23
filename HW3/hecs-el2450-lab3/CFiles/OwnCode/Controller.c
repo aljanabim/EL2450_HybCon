@@ -11,6 +11,29 @@ vel = 0;
 w = 0;
 
 
+//If flag state is 0, we are in the rotating sequence, if it is to 1, we are in the goal to goal state
+if flag_state==0{
+    if (abs(theta_goal - theta) > angle_threshold){
+        controller=0;
+    }
+    else{
+        flag_state=1;
+        controller=1;
+    }
+}
+else{
+    if(abs(xg-x)>distance_threshold && abs(yg-y)>distance_threshold){
+        controller=1;
+    }
+    else{
+        flag_state=0;
+        controller=0;
+    }
+}
+
+
+
+
 if (abs(theta_goal - theta) > angle_threshold)
 {
     controller = 0;
@@ -52,10 +75,7 @@ case 1: // Go-to-goal controller
     xdelta=(x+p*cos(theta)-x0)*sin(theta_goal);
     ydelta=(y+p*sin(theta)-y0)*cos(theta_goal);
     w=k_g2g*(xdelta-ydelta);
-    xdelta = xg - x;
-    ydelta = yg - y;
-    d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
-    vel = k_w * d0;
+
     // rotation
 
     break;

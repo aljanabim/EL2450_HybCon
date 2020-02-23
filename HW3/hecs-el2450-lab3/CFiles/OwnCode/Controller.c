@@ -24,7 +24,7 @@ if flag_state==0{
     }
 }
 else{
-    if(abs(xg-x)>distance_threshold && abs(yg-y)>distance_threshold){
+    if(sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold){
         controller=1;
     }
     else{
@@ -34,21 +34,6 @@ else{
 }
 
 
-
-
-if (abs(theta_goal - theta) > angle_threshold)
-=======
-if (abs(theta_goal - theta) > 20)
->>>>>>> c8f441c3d2f2ec321a7ae77617fefa3d85ae86b8
-{
-    controller = 0;
-}
-else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
-{
-    controller = 1;
-}
-
-controller = 0;
 switch (controller)
 {
 case 0: // rotational controller
@@ -66,14 +51,6 @@ case 0: // rotational controller
     vel = k_w * d0;
     break;
 
-<<<<<<< HEAD
-    //Rotation
-    xdelta=(x+p*cos(theta)-x0)*sin(theta_goal);
-    ydelta=(y+p*sin(theta)-y0)*cos(theta_goal);
-    w=k_g2g*(xdelta-ydelta);
-
-    // rotation
-=======
 case 1: // Go-to-goal controller
     // translation
     k_w = 5;
@@ -93,7 +70,7 @@ case 1: // Go-to-goal controller
     xdelta = (x + p * cos(theta * PI / 180) - x0) * sin(theta_goal * PI / 180);
     ydelta = (y + p * sin(theta * PI / 180) - y0) * cos(theta_goal * PI / 180);
     w = k_g2g * (xdelta - ydelta);
->>>>>>> c8f441c3d2f2ec321a7ae77617fefa3d85ae86b8
+
 
     break;
 

@@ -55,21 +55,22 @@ def task11():
     time3, x3, y3, theta3 = get_data('pos_task_11_k_3.csv')
     min_dim = np.minimum(time8.shape[0], time5.shape[0])-1
 
+    plt.subplot(1,2,1)
     plt.plot(time8[:min_dim], x8[:min_dim], label=r"$K_{\Psi}=8$")
     plt.plot(time5[:min_dim], x5[:min_dim], label=r"$K_{\Psi}=5$")
     plt.plot(time3[:min_dim], x3[:min_dim], label=r"$K_{\Psi}=3$")
     plt.xlabel("Time [ms]")
-    plt.ylabel(r"$\Theta$")
+    plt.ylabel(r"$x$")
     plt.legend()
-    plt.savefig('plots/task11_1.pdf')
 
+    plt.subplot(1,2,2)
     plt.plot(time8[:min_dim], y8[:min_dim], label=r"$K_{\Psi}=8$")
     plt.plot(time5[:min_dim], y5[:min_dim], label=r"$K_{\Psi}=5$")
     plt.plot(time3[:min_dim], y3[:min_dim], label=r"$K_{\Psi}=3$")
     plt.xlabel("Time [ms]")
-    plt.ylabel(r"$\Theta$")
+    plt.ylabel(r"$y$")
     plt.legend()
-    plt.savefig('plots/task11_2.pdf')
+    plt.savefig('plots/task11.pdf')
 
 
 if __name__ == "__main__":

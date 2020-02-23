@@ -47,7 +47,8 @@ else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
 {
     controller = 1;
 }
-controller = 1;
+
+controller = 0;
 switch (controller)
 {
 case 0: // rotational controller
@@ -56,7 +57,7 @@ case 0: // rotational controller
     xdelta = xg - x;
     ydelta = yg - y;
     w = k_psi * (theta_goal - theta);
-
+    w = 0;
     // translation
     k_w = 5;
     xdelta = x0 - x;
@@ -82,15 +83,9 @@ case 1: // Go-to-goal controller
     vel = k_w * d0;
 
     //Rotation
-    p = sqrt(pow(xg - x, 2) + pow(yg - y, 2));
-    if (20 < p)
-    {
-        k_g2g = 20;
-    }
-    else
-    {
-        k_g2g = p;
-    }
+
+    p = 40; //sqrt(pow(xg - x, 2) + pow(yg - y, 2));
+    k_g2g = 10;
 
     Serial.print(p);
     Serial.print(" k ");

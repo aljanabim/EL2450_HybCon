@@ -2,7 +2,6 @@
 theta_goal = atan2(ygoal, xgoal) * 180 / PI;
 controller = 10;
 angle_threshold = 1;
-w = 0;
 distance_threshold = 5;
 
 if (abs(theta_goal - theta) > angle_threshold)
@@ -16,26 +15,35 @@ else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
 
 switch (controller)
 {
-case 0: // rotational conttroller
+case 0: // rotational controller
+    // rotation
     k_psi = 5;
-    k_w = 5;
-
     xgoal = (xg - x) / 100;
     ygoal = yg - y;
-    // w = k_psi * (theta_goal - theta);
+    w = k_psi * (theta_goal - theta);
 
+    // translation
+    k_w = 5;
     xdelta = x0 - x;
     ydelta = y0 - y;
     d0 = cos(theta * PI / 180) * xdelta + sin(theta * PI / 180) * ydelta;
     vel = k_w * d0;
 
-case 1:
+case 1: // Go-to-goal controller
+    // translation
+    k_w = 5;
+    xdelta = xgoal - x;
+    ydelta = ygoal - y;
+    d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
+    vel = k_w * d0;
 
+    // rotation
     break;
 
 default:
     vel = 0;
     w = 0;
+    Serial.print("No controller selected. All movement stopped!");
     break;
 }
 
@@ -56,3 +64,10 @@ Serial.print(" | x0 ");
 Serial.print(x0);
 Serial.print(" | xg ");
 Serial.print(xg);
+
+// 0;0;-1.25;1.25
+// -1.25;1.25;-0.75;1.25
+// -0.75;1.25;-0.25;1.25
+// -0.25;1.25;-0.25;0.75
+// -0.25;0.75;0.25;0.75
+// 0.25;0.75;0.25;0.25

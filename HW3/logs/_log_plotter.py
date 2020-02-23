@@ -36,10 +36,16 @@ def task8():
     goal = np.array([0.7269, 0.5912])
     error_x = x8-goal[0]
     error_y = y8-goal[1]
+    error = np.sqrt((error_x)**2+(error_y)**2)
     start = np.array([0, 0])
     dist = start-goal
-    plt.plot(time8, np.sqrt((error_x)**2+(error_y)**2))
-    plt.show()
+    plt.plot(time8, error)
+    plt.xlim((0, np.max(time8)))
+    plt.ylim((0, np.max(error)+0.05))
+    plt.xlabel("Time [ms]")
+    plt.ylabel("Distance from start point [m]")
+    plt.savefig('plots/task8.pdf')
+    # plt.show()
 
 
 if __name__ == "__main__":

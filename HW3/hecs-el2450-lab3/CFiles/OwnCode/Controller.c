@@ -1,8 +1,8 @@
 #include <math.h>
-theta_goal = atan2(ygoal, xgoal) * 180 / PI;
 controller = 10;
-angle_threshold = 1;
 distance_threshold = 5;
+theta_goal = atan2(yg, xg) * 180 / PI;
+p = 2;
 vel = 0;
 w = 0;
 
@@ -15,33 +15,43 @@ else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
     controller = 1;
 }
 
-controller = 0;
+angle_threshold = 1;
+
 switch (controller)
 {
 case 0: // rotational controller
     // rotation
-    k_psi = 3;
+    k_psi = 5;
     xdelta = xg - x;
     ydelta = yg - y;
-    theta_goal = atan2(ydelta, xdelta) * 180 / PI;
     w = k_psi * (theta_goal - theta);
-    vel = 0;
-    // // translation
-    // k_w = 5;
-    // xdelta = x0 - x;
-    // ydelta = y0 - y;
-    // d0 = cos(theta * PI / 180) * xdelta + sin(theta * PI / 180) * ydelta;
-    // vel = k_w * d0;
+
+    // translation
+    k_w = 5;
+    xdelta = x0 - x;
+    ydelta = y0 - y;
+    d0 = cos(theta * PI / 180) * xdelta + sin(theta * PI / 180) * ydelta;
+    vel = k_w * d0;
     break;
 
 case 1: // Go-to-goal controller
     // translation
     k_w = 5;
+    xdelta = xgoal - x;
+    ydelta = ygoal - y;
+    d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
+    vel = k_w * d0;
+
+    //Rotation
+    k_g2g = 5;
+    xdelta = (x + p * cos(theta) - x0) * sin(theta_goal);
+    ydelta = (y + p * sin(theta) - y0) * cos(theta_goal);
+    w = k_g2g * (xdelta - ydelta);
     xdelta = xg - x;
     ydelta = yg - y;
     d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
-    vel = k_w * d0;
-    // rotation
+    w = k_g2g * d0;
+
     break;
 
 default:

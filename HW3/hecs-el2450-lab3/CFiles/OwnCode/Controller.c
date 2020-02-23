@@ -5,16 +5,35 @@ angle_threshold = 1;
 theta_goal = atan2(yg, xg) * 180 / PI;
 p = 2;
 
-if (abs(theta_goal - theta) > 20)
-{
-    controller = 0;
+<<<<<<< HEAD
+p=2
+
+
+vel = 0;
+w = 0;
+
+
+//If flag state is 0, we are in the rotating sequence, if it is to 1, we are in the goal to goal state
+if flag_state==0{
+    if (abs(theta_goal - theta) > angle_threshold){
+        controller=0;
+    }
+    else{
+        flag_state=1;
+        controller=1;
+    }
 }
-else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
-{
-    controller = 1;
+else{
+    if(sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold){
+        controller=1;
+    }
+    else{
+        flag_state=0;
+        controller=0;
+    }
 }
 
-controller = 0;
+
 switch (controller)
 {
 case 0: // rotational controller
@@ -51,6 +70,7 @@ case 1: // Go-to-goal controller
     xdelta = (x + p * cos(theta * PI / 180) - x0) * sin(theta_goal * PI / 180);
     ydelta = (y + p * sin(theta * PI / 180) - y0) * cos(theta_goal * PI / 180);
     w = k_g2g * (xdelta - ydelta);
+
 
     break;
 

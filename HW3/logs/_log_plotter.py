@@ -49,7 +49,30 @@ def task8():
     plt.savefig('plots/task8.pdf')
     # plt.show()
 
+def task11():
+    time8, x8, y8, theta8 = get_data('pos_task_11_k_8.csv')
+    time5, x5, y5, theta5 = get_data('pos_task_11_k_5.csv')
+    time3, x3, y3, theta3 = get_data('pos_task_11_k_3.csv')
+    min_dim = np.minimum(time8.shape[0], time5.shape[0])-1
+
+    plt.plot(time8[:min_dim], x8[:min_dim], label=r"$K_{\Psi}=8$")
+    plt.plot(time5[:min_dim], x5[:min_dim], label=r"$K_{\Psi}=5$")
+    plt.plot(time3[:min_dim], x3[:min_dim], label=r"$K_{\Psi}=3$")
+    plt.xlabel("Time [ms]")
+    plt.ylabel(r"$\Theta$")
+    plt.legend()
+    plt.savefig('plots/task11_1.pdf')
+
+    plt.plot(time8[:min_dim], y8[:min_dim], label=r"$K_{\Psi}=8$")
+    plt.plot(time5[:min_dim], y5[:min_dim], label=r"$K_{\Psi}=5$")
+    plt.plot(time3[:min_dim], y3[:min_dim], label=r"$K_{\Psi}=3$")
+    plt.xlabel("Time [ms]")
+    plt.ylabel(r"$\Theta$")
+    plt.legend()
+    plt.savefig('plots/task11_2.pdf')
+
 
 if __name__ == "__main__":
-    task6()
+    # task6()
     # task8()
+    task11()

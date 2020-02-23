@@ -23,8 +23,8 @@ case 0: // rotational controller
     xdelta = xg - x;
     ydelta = yg - y;
     w = k_psi * (theta_goal - theta);
-    w = 0;
     // translation
+    w = 0;
     k_w = 5;
     xdelta = x0 - x;
     ydelta = y0 - y;

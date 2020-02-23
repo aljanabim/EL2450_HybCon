@@ -3,6 +3,8 @@ theta_goal = atan2(ygoal, xgoal) * 180 / PI;
 controller = 10;
 angle_threshold = 1;
 distance_threshold = 5;
+p=2
+
 
 if (abs(theta_goal - theta) > angle_threshold)
 {
@@ -32,12 +34,16 @@ case 0: // rotational controller
 case 1: // Go-to-goal controller
     // translation
     k_w = 5;
+    k_g2g=5;
     xdelta = xgoal - x;
     ydelta = ygoal - y;
     d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
     vel = k_w * d0;
 
-    // rotation
+    //Rotation
+    xdelta=(x+p*cos(theta)-x0)*sin(theta_goal);
+    ydelta=(y+p*sin(theta)-y0)*cos(theta_goal);
+    w=k_g2g*(xdelta-ydelta);
     break;
 
 default:

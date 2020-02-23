@@ -8,6 +8,8 @@ double theta_goal;
 int w;
 int vel;
 int k_w;
+float k_g2g;
+float p;
 int controller;
 float angle_threshold;
 float distance_threshold;

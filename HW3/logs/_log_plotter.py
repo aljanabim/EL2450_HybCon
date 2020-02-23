@@ -20,10 +20,12 @@ def get_data(filename):
 def task6():
     time8, x8, y8, theta8 = get_data('pos_task_6_k_8.csv')
     time5, x5, y5, theta5 = get_data('pos_task_6_k_5.csv')
+    time3, x3, y3, theta3 = get_data('pos_task_6_k_3.csv')
     min_dim = np.minimum(time8.shape[0], time5.shape[0])-1
 
     plt.plot(time8[:min_dim], theta8[:min_dim], label=r"$K_{\Psi}=8$")
     plt.plot(time5[:min_dim], theta5[:min_dim], label=r"$K_{\Psi}=5$")
+    plt.plot(time3[:min_dim], theta3[:min_dim], label=r"$K_{\Psi}=3$")
     plt.xlabel("Time [ms]")
     plt.ylabel(r"$\Theta$")
     plt.legend()
@@ -49,4 +51,5 @@ def task8():
 
 
 if __name__ == "__main__":
-    task8()
+    task6()
+    # task8()

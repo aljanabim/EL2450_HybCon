@@ -3,7 +3,12 @@ theta_goal = atan2(ygoal, xgoal) * 180 / PI;
 controller = 10;
 angle_threshold = 1;
 distance_threshold = 5;
+
 p=2
+
+
+vel = 0;
+w = 0;
 
 
 if (abs(theta_goal - theta) > angle_threshold)
@@ -15,21 +20,24 @@ else if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
     controller = 1;
 }
 
+controller = 0;
 switch (controller)
 {
 case 0: // rotational controller
     // rotation
-    k_psi = 5;
-    xgoal = (xg - x) / 100;
-    ygoal = yg - y;
+    k_psi = 3;
+    xdelta = xg - x;
+    ydelta = yg - y;
+    theta_goal = atan2(ydelta, xdelta) * 180 / PI;
     w = k_psi * (theta_goal - theta);
-
-    // translation
-    k_w = 5;
-    xdelta = x0 - x;
-    ydelta = y0 - y;
-    d0 = cos(theta * PI / 180) * xdelta + sin(theta * PI / 180) * ydelta;
-    vel = k_w * d0;
+    vel = 0;
+    // // translation
+    // k_w = 5;
+    // xdelta = x0 - x;
+    // ydelta = y0 - y;
+    // d0 = cos(theta * PI / 180) * xdelta + sin(theta * PI / 180) * ydelta;
+    // vel = k_w * d0;
+    break;
 
 case 1: // Go-to-goal controller
     // translation
@@ -44,6 +52,12 @@ case 1: // Go-to-goal controller
     xdelta=(x+p*cos(theta)-x0)*sin(theta_goal);
     ydelta=(y+p*sin(theta)-y0)*cos(theta_goal);
     w=k_g2g*(xdelta-ydelta);
+    xdelta = xg - x;
+    ydelta = yg - y;
+    d0 = cos(theta_goal * PI / 180) * xdelta + sin(theta_goal * PI / 180) * ydelta;
+    vel = k_w * d0;
+    // rotation
+
     break;
 
 default:
@@ -55,6 +69,15 @@ default:
 
 left = vel - w / 2;
 right = vel + w / 2;
+
+Serial.print(" | w: ");
+Serial.print(w);
+Serial.print(" | vel: ");
+Serial.print(vel);
+Serial.print(" | left: ");
+Serial.print(left);
+Serial.print(" | right: ");
+Serial.print(right);
 
 Serial.print("Theta error: ");
 Serial.print(theta_goal - theta);

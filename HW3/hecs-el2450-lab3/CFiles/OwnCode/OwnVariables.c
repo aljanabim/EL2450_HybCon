@@ -1,5 +1,7 @@
 int xdelta;
 int ydelta;
+int xdelta_rot;
+int ydelta_rot;
 float d0;
 float theta_rad;
 float theta_full;

@@ -62,9 +62,25 @@ case 1: // Go-to-goal controller
     xdelta_rot = (x + p * cos(theta_rad) - x0) * sin(theta_goal_rad);
     ydelta_rot = (y + p * sin(theta_rad) - y0) * cos(theta_goal_rad);
     w = k_psi_g2g * (xdelta_rot - ydelta_rot);
-
     break;
 }
+
+// left and right are limited to 800
+// vel becomes huge quire quickly and should be limited
+// If limiting vel to 200 then w has up to 600 to play with but since we divide it by two effectively we have it going up to 300
+if (vel > vel_lim)
+{
+    vel = vel_lim;
+}
+else if (vel < -vel_lim)
+{
+    vel = -vel_lim;
+}
+
+Serial.print(" | w ");
+Serial.print(w);
+Serial.print(" | vel ");
+Serial.print(vel);
 
 left = vel - w / 2;
 right = vel + w / 2;

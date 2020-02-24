@@ -13,6 +13,7 @@ int vel;
 float delta_angle;
 int controller;
 
+int vel_lim = 200;
 int distance_threshold = 5;
 int angle_threshold = 1;
 int k_w = 5;

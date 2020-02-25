@@ -16,6 +16,20 @@ def get_data(filename):
         theta = raw[:, 3]
     return time, x, y, theta
 
+def get_data2(filename):
+    with open(filename) as csv_file:
+        raw = np.array(list(csv.reader(csv_file, delimiter=';'))
+                       )[1:].astype("float64")
+        time = raw[:, 0]-raw[0, 0]
+        x = raw[:, 1]
+        y = raw[:, 2]
+        xg=raw[:,3]
+        yg=raw[:,4]
+        theta = raw[:, 5]
+
+
+    return time, x, y, xg, yg, theta
+
 
 def task6():
     time8, x8, y8, theta8 = get_data('pos_task_6_k_8.csv')
@@ -169,6 +183,24 @@ def task15():
     plt.savefig('plots/task15.pdf')
     plt.show()
 
+def task17():
+    time17d,state,x,y,xg,yg = get_data2('serial_task_17_4.csv')
+    time17d=time17d/1000
+    d2g=np.sqrt((x-xg)**2+(y-yg)**2)
+    plt.subplot(2, 1, 1)
+    plt.plot(time17d, state,'o')
+    plt.title('Discrete state evolution over time')
+    plt.xlabel('Time [s]')
+    plt.ylabel('Discrete state')
+    plt.subplot(2,1,2)
+    plt.plot(time17d,d2g)
+    plt.title('Discrete state evolution over time')
+    plt.xlabel('Time [s]')
+    plt.ylabel('Distance to goal')
+    plt.tight_layout()
+    plt.savefig('plots/task17.pdf')
+    plt.show()
+
 def task18():
     time, x, y, theta = get_data('pos_task_18.csv')
     plt.plot(x,y,'k',label='Actual path')
@@ -213,6 +245,9 @@ def task13():
 
 if __name__ == "__main__":
     # task6()
-    task8()
-    task9()
+    # task8()
+    # task14()
+    # task17()
+    # task11()
+    # task9()
     task13()

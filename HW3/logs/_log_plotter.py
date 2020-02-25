@@ -51,19 +51,19 @@ def task8():
 
 def task9():
     time, x, y, theta = get_data('pos_task_9.csv')
-    goal = np.array([0.7269, 0.5912])
-    start = np.array([0, 0])
-    theta_goal = np.arctan2(goal[1],goal[0])
-    # print(theta_goal*180/np.pi)
+    goal = np.array([0.7269, 2.0382])
+    start = np.array([0,0])
+    theta_goal = np.arctan2(goal[1],goal[0])*180/np.pi
     error = theta_goal - theta
+    d0 = np.cos(theta)*(start[0])
     # error_y = y-goal[1]
     # error = np.sqrt((error_x)**2+(error_y)**2)
     # dist = start-goal
     plt.plot(time, error)
-    plt.xlim((0, np.max(time)))
-    plt.ylim((0, np.max(error)+0.05))
+    # plt.xlim((0, np.max(time)))
+    # plt.ylim((0, np.max(error)+0.05))
     plt.xlabel("Time [ms]")
-    plt.ylabel("Distance from start point [m]")
+    plt.ylabel(r"Error in $\theta$")
     # plt.savefig('plots/task8.pdf')
     plt.show()
 
@@ -137,13 +137,4 @@ def task15():
 if __name__ == "__main__":
     # task6()
     # task8()
-<<<<<<< HEAD
     task9()
-    # task11()
-=======
-    task14()
-<<<<<<< HEAD
-    task15()
-=======
->>>>>>> 3e0bd01013b3bd0e3494b52a459fd90f158b1c0f
->>>>>>> 65144758b8537cf4b2fb4107aa96f36646ed066b

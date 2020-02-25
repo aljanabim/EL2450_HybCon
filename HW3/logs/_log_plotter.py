@@ -151,22 +151,23 @@ def task15():
     plt.show()
 
 def task17():
-    time17d,state = get_data2('serial_task_17.csv')
-    time17dist,x,y,theta=get_data('pos_task_17.csv')
-    time17dist=time17dist-time17dist[0]
-    d2g=np.sqrt((x-y)**2)
-    time17d=time17d-time17d[0]
-    plt.subplots(2, 1, 1)
-    plt.plot(time17d, state)
+    time17d,state,x,y,xg,yg = get_data2('serial_task_17_4.csv')
+    time17d=time17d/1000
+    d2g=np.sqrt((x-xg)**2+(y-yg)**2)
+    plt.subplot(2, 1, 1)
+    plt.plot(time17d, state,'o')
     plt.title('Discrete state evolution over time')
     plt.xlabel('Time [s]')
     plt.ylabel('Discrete state')
-    plt.subplots(2,1,2)
-    plt.plot(time17dist,d2g)
+    plt.subplot(2,1,2)
+    plt.plot(time17d,d2g)
     plt.title('Discrete state evolution over time')
     plt.xlabel('Time [s]')
     plt.ylabel('Distance to goal')
+    plt.tight_layout()
+    plt.savefig('plots/task17.pdf')
     plt.show()
+
 
 
 

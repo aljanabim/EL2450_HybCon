@@ -34,7 +34,23 @@ def task6():
 
 
 def task8():
-    time8, x8, y8, theta8 = get_data('pos_task_8.csv')
+    time8, x8, y8, theta8 = get_data('pos_task_8_2.csv')
+    goal = np.array([0, 0])
+    error_x = x8-goal[0]
+    error_y = y8-goal[1]
+    error = np.sqrt((error_x)**2+(error_y)**2)
+    start = np.array([0.7269, 0.5912])
+    dist = start-goal
+    plt.plot(time8, error)
+    plt.xlim((0, np.max(time8)))
+    plt.ylim((0, np.max(error)+0.05))
+    plt.xlabel("Time [ms]")
+    plt.ylabel("Distance to start point [m]")
+    # plt.savefig('plots/task8.pdf')
+    plt.show()
+
+def task9():
+    time, x, y, theta = get_data('pos_task_9.csv')
     goal = np.array([0.7269, 0.5912])
     error_x = x8-goal[0]
     error_y = y8-goal[1]
@@ -46,8 +62,8 @@ def task8():
     plt.ylim((0, np.max(error)+0.05))
     plt.xlabel("Time [ms]")
     plt.ylabel("Distance from start point [m]")
-    plt.savefig('plots/task8.pdf')
-    # plt.show()
+    # plt.savefig('plots/task8.pdf')
+    plt.show()
 
 def task11():
     time8, x8, y8, theta8 = get_data('pos_task_11_k_8.csv')
@@ -75,5 +91,5 @@ def task11():
 
 if __name__ == "__main__":
     # task6()
-    # task8()
-    task11()
+    task8()
+    # task11()

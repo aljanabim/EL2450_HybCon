@@ -83,9 +83,15 @@ else if (vel < -vel_lim)
 }
 Serial.print(controller);
 Serial.print(";");
+Serial.print(x);
+Serial.print(";");
+Serial.print(y);
+Serial.print(";");
 Serial.print(xg);
 Serial.print(";");
 Serial.print(yg);
+Serial.print(";");
+Serial.print(theta);
 
 left = vel - w / 2;
 right = vel + w / 2;

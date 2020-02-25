@@ -90,9 +90,41 @@ def task11():
     plt.legend()
     plt.savefig('plots/task11.pdf')
 
+def task14():
+    # time10, x10, y10, theta10 = get_data('pos_task_14_k_10.csv')
+    # time5, x5, y5, theta5 = get_data('pos_task_14_k_5.csv')
+    # time1, x1, y1, theta1 = get_data('pos_task_14_k_1.csv')
+    # min_dim = np.minimum(time10.shape[0], time5.shape[0])-1
+
+    # plt.plot(time10[:min_dim], theta10[:min_dim], label=r"$K_{\Psi}=10$")
+    # plt.plot(time5[:min_dim], theta5[:min_dim], label=r"$K_{\Psi}=5$")
+    # plt.plot(time1[:min_dim], theta1[:min_dim], label=r"$K_{\Psi}=1$")
+    # plt.xlabel("Time [ms]")
+    # plt.ylabel(r"$\Theta$")
+    # plt.legend()
+    # plt.savefig('plots/task14.pdf')
+    # # plt.show()
+
+    time10, x10, y10, theta10 = get_data('pos_task_14_k_10.csv')
+    time5, x5, y5, theta5 = get_data('pos_task_14_k_5.csv')
+    time1, x1, y1, theta1 = get_data('pos_task_14_k_1.csv')
+    min_dim = np.minimum(time10.shape[0], time5.shape[0])-1
+
+    plt.plot(time10[:min_dim], 70.37-theta10[:min_dim], label=r"$K_{\Psi}=10$")
+    plt.plot(time5[:min_dim], 70.37-theta5[:min_dim], label=r"$K_{\Psi}=5$")
+    plt.plot(time1[:min_dim], 70.37-theta1[:min_dim], label=r"$K_{\Psi}=1$")
+    plt.xlabel("Time [ms]")
+    plt.ylabel(r"$Error_\Theta$")
+    plt.legend()
+    plt.savefig('plots/task14.pdf')
+
 
 if __name__ == "__main__":
     # task6()
     # task8()
+<<<<<<< HEAD
     task9()
     # task11()
+=======
+    task14()
+>>>>>>> 3e0bd01013b3bd0e3494b52a459fd90f158b1c0f

@@ -1,17 +1,20 @@
-int xgoal;
-int ygoal;
 int xdelta;
 int ydelta;
 float d0;
-double k_psi;
-double theta_goal;
+float theta_rad;
+float theta_full;
+float theta_goal;
+float theta_goal_rad;
+float theta_goal_full;
 int w;
 int vel;
-int k_w;
-float k_g2g;
-float p;
+float delta_angle;
 int controller;
-float angle_threshold;
-float distance_threshold;
-int flag_state;
-// here
+
+int distance_threshold = 5;
+int angle_threshold = 1;
+int k_w = 5;
+int k_psi = 5;
+int p = 40;
+int k_w_g2g = 10;
+int k_psi_g2g = 10;

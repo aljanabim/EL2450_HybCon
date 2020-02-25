@@ -46,7 +46,7 @@ def task8():
     # plt.ylim((0, np.max(error)+0.05))
     # plt.xlabel("Time [ms]")
     # plt.ylabel("Distance to start point [m]")
-    
+
     lim = 600
     time8, x8, y8, theta8 = get_data('pos_task_8.csv')
     time8, x8,y8,theta8 = time8[:lim], x8[:lim], y8[:lim], theta8[:lim]
@@ -55,10 +55,10 @@ def task8():
     time, x,y,theta = time[:lim], x[:lim], y[:lim], theta[:lim]
     goal = np.array([0.7269, 2.0382])
     start = np.array([0,0])
-    
+
     distance8 = np.sqrt(np.power(y8,2)+np.power(x8,2))
     distance = np.sqrt(np.power(y,2)+np.power(x,2))
-    
+
     plt.plot(time8,distance8, label=r"distance to true start with $\omega=0$ ")
     plt.plot(time,distance, label=r"distance to true start")
     plt.xlabel("Time [ms]")
@@ -67,7 +67,7 @@ def task8():
     # plt.suptitle("Both parts of the controller activated")
     plt.tight_layout()
     plt.savefig('plots/task8.pdf')
-    
+
     plt.show()
 
 
@@ -80,7 +80,7 @@ def task9():
     goal = np.array([0.7269, 2.0382])
     # start = np.array([0.7269,0.5912])
     start = np.array([0,0])
-    
+
     theta_goal = np.arctan2(goal[1],goal[0])*180/np.pi
     error = theta_goal - theta
     d0 = np.cos(np.deg2rad(theta))*(start[0]-x)+np.sin(np.deg2rad(theta))*(start[1]-y)
@@ -100,7 +100,7 @@ def task9():
     # plt.suptitle("Both parts of the controller activated")
     plt.tight_layout()
     plt.savefig('plots/task9.pdf')
-    
+
     plt.show()
 
 def task11():
@@ -195,8 +195,24 @@ def task18():
     plt.savefig('plots/task18.pdf')
     plt.show()
 
+def task13():
+    time, x1, y1, theta = get_data('pos_task_13_p1.csv')
+    time, x2, y2, theta = get_data('pos_task_13_p40.csv')
+    time, x3, y3, theta = get_data('pos_task_13_p80.csv')
+    plt.plot(y1,x1,'r',label='$p=1$')
+    plt.plot(y2,x2,'g',label='$p=40$')
+    plt.plot(y3,x3,'b',label='$p=80$')
+    plt.legend()
+    plt.ylim([-0.25,1.0])
+    plt.axis('equal')
+    plt.xlabel('Y [m]')
+    plt.ylabel('X [m]')
+    plt.tight_layout()
+    plt.savefig('plots/task13.pdf')
+    plt.show()
+
 if __name__ == "__main__":
     # task6()
     task8()
     task9()
-    task18()
+    task13()

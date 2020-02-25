@@ -100,8 +100,13 @@ def task14():
     plt.legend()
     plt.savefig('plots/task14.pdf')
 
+def task17():
+    time10, x10, y10, theta10 = get_data('pos_task_14_k_10.csv')
+
+
 
 if __name__ == "__main__":
     # task6()
     # task8()
-    task14()
+    #task14()
+    task17()

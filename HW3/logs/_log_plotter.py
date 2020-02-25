@@ -169,8 +169,34 @@ def task15():
     plt.savefig('plots/task15.pdf')
     plt.show()
 
+def task18():
+    time, x, y, theta = get_data('pos_task_18.csv')
+    plt.plot(x,y,'k',label='Actual path')
+    w_x = [-1.25,
+           -0.75,
+           -0.25,
+           -0.25,
+            0.25,
+            0.25,
+           ]
+    w_y = [1.25,
+           1.25,
+           1.25,
+           0.75,
+           0.75,
+           0.25,
+           ]
+    plt.plot(w_x,w_y,'bv',label='Waypoints')
+    plt.xlim([-1.5,1.5])
+    plt.ylim([-1.5,1.5])
+    plt.xlabel("X [m]")
+    plt.ylabel("Y [m]")
+    plt.legend()
+    plt.savefig('plots/task18.pdf')
+    plt.show()
 
 if __name__ == "__main__":
     # task6()
     task8()
     task9()
+    task18()

@@ -119,7 +119,22 @@ def task14():
     plt.savefig('plots/task14.pdf')
 
 def task17():
-    time10, x10, y10, theta10 = get_data('pos_task_14_k_10.csv')
+    time17d,state = get_data('serial_task_17.csv')
+    time17dist,x,y,theta=get_data('pos_task_17.csv')
+    time17dist=time17dist-time17dist[0]
+    d2g=np.sqrt((x-y)**2)
+    time17d=time17d-time17d[0]
+    plt.subplots(2, 1, 1)
+    plt.plot(time17d, state)
+    plt.title('Discrete state evolution over time')
+    plt.xlabel('Time [s]')
+    plt.ylabel('Discrete state')
+    plt.subplots(2,1,2)
+    plt.plot(time17dist,d2g)
+    plt.title('Discrete state evolution over time')
+    plt.xlabel('Time [s]')
+    plt.ylabel('Distance to goal')
+    plt.show()
 
 
 
@@ -128,6 +143,6 @@ if __name__ == "__main__":
     # task8()
     #task14()
     task17()
-    task9()
+    #task9()
     # task11()
-    task14()
+

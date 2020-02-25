@@ -16,6 +16,20 @@ def get_data(filename):
         theta = raw[:, 3]
     return time, x, y, theta
 
+def get_data2(filename):
+    with open(filename) as csv_file:
+        raw = np.array(list(csv.reader(csv_file, delimiter=';'))
+                       )[1:].astype("float64")
+        time = raw[:, 0]-raw[0, 0]
+        x = raw[:, 1]
+        y = raw[:, 2]
+        xg=raw[:,3]
+        yg=raw[:,4]
+        theta = raw[:, 5]
+
+
+    return time, x, y, xg, yg, theta
+
 
 def task6():
     time8, x8, y8, theta8 = get_data('pos_task_6_k_8.csv')
@@ -119,7 +133,7 @@ def task14():
     plt.savefig('plots/task14.pdf')
 
 def task17():
-    time17d,state = get_data('serial_task_17.csv')
+    time17d,state = get_data2('serial_task_17.csv')
     time17dist,x,y,theta=get_data('pos_task_17.csv')
     time17dist=time17dist-time17dist[0]
     d2g=np.sqrt((x-y)**2)

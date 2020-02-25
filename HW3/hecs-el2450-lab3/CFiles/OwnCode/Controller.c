@@ -20,11 +20,11 @@ switch (controller)
 case 0: // rotational controller
     if (abs(theta_goal_full - theta_full) > angle_threshold)
     {
-        // Serial.print("Engage orientation controller!");
+        Serial.print("Engage orientation controller!");
     }
     else
     {
-        // Serial.print("Orientation good!");
+        Serial.print("Orientation good!");
         controller = 1;
     }
 
@@ -43,11 +43,11 @@ case 0: // rotational controller
 case 1: // Go-to-goal controller
     if (sqrt(pow(xg - x, 2) + pow(yg - y, 2)) > distance_threshold)
     {
-        // Serial.print("Engage Go-to-Goal controller!");
+        Serial.print("Engage Go-to-Goal controller!");
     }
     else
     {
-        // Serial.print("Reached goal!");
+        Serial.print("Reached goal!");
         controller = 2;
     }
 
@@ -66,7 +66,7 @@ case 1: // Go-to-goal controller
 case 2: // Stop controller
     vel = 0;
     w = 0;
-    // Serial.print("Stopping");
+    Serial.print("Stopping");
     send_done();
     break;
 }
@@ -81,17 +81,17 @@ else if (vel < -vel_lim)
 {
     vel = -vel_lim;
 }
-Serial.print(controller);
-Serial.print(";");
-Serial.print(x);
-Serial.print(";");
-Serial.print(y);
-Serial.print(";");
-Serial.print(xg);
-Serial.print(";");
-Serial.print(yg);
-Serial.print(";");
-Serial.print(theta);
+// Serial.print(controller);
+// Serial.print(";");
+// Serial.print(x);
+// Serial.print(";");
+// Serial.print(y);
+// Serial.print(";");
+// Serial.print(xg);
+// Serial.print(";");
+// Serial.print(yg);
+// Serial.print(";");
+// Serial.print(theta);
 
 left = vel - w / 2;
 right = vel + w / 2;

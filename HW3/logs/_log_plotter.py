@@ -48,29 +48,58 @@ def task6():
 
 
 def task8():
-    time8, x8, y8, theta8 = get_data('pos_task_8_2.csv')
-    goal = np.array([0, 0])
-    error_x = x8-goal[0]
-    error_y = y8-goal[1]
-    error = np.sqrt((error_x)**2+(error_y)**2)
-    start = np.array([0.7269, 0.5912])
-    dist = start-goal
-    plt.plot(time8, error)
-    plt.xlim((0, np.max(time8)))
-    plt.ylim((0, np.max(error)+0.05))
-    plt.xlabel("Time [ms]")
-    plt.ylabel("Distance to start point [m]")
-    # plt.savefig('plots/task8.pdf')
-    plt.show()
+    # time8, x8, y8, theta8 = get_data('pos_task_8_2.csv')
+    # goal = np.array([0, 0])
+    # error_x = x8-goal[0]
+    # error_y = y8-goal[1]
+    # error = np.sqrt((error_x)**2+(error_y)**2)
+    # start = np.array([0.7269, 0.5912])
+    # dist = start-goal
+    # plt.plot(time8, error)
+    # plt.xlim((0, np.max(time8)))
+    # plt.ylim((0, np.max(error)+0.05))
+    # plt.xlabel("Time [ms]")
+    # plt.ylabel("Distance to start point [m]")
+    
+    lim = 600
+    time8, x8, y8, theta8 = get_data('pos_task_8.csv')
+    time8, x8,y8,theta8 = time8[:lim], x8[:lim], y8[:lim], theta8[:lim]
 
-def task9():
-    lim = 100
-    time[:lim], x[:lim], y[:lim], theta[:lim] = get_data('pos_task_9.csv')
+    time, x, y, theta = get_data('pos_task_9.csv')
+    time, x,y,theta = time[:lim], x[:lim], y[:lim], theta[:lim]
     goal = np.array([0.7269, 2.0382])
     start = np.array([0,0])
+    
+    distance8 = np.sqrt(np.power(y8,2)+np.power(x8,2))
+    distance = np.sqrt(np.power(y,2)+np.power(x,2))
+    
+    plt.plot(time8,distance8, label=r"distance to true start with $\omega=0$ ")
+    plt.plot(time,distance, label=r"distance to true start")
+    plt.xlabel("Time [ms]")
+    plt.legend()
+    # plt.ylabel(r"$d_0$")
+    # plt.suptitle("Both parts of the controller activated")
+    plt.tight_layout()
+    plt.savefig('plots/task8.pdf')
+    
+    plt.show()
+
+
+
+
+def task9():
+    lim = 600
+    time, x, y, theta = get_data('pos_task_9.csv')
+    time, x,y,theta = time[:lim], x[:lim], y[:lim], theta[:lim]
+    goal = np.array([0.7269, 2.0382])
+    # start = np.array([0.7269,0.5912])
+    start = np.array([0,0])
+    
     theta_goal = np.arctan2(goal[1],goal[0])*180/np.pi
     error = theta_goal - theta
-    d0 = np.cos(theta)*(start[0]-x)+np.sin(theta)*(start[1]-y)
+    d0 = np.cos(np.deg2rad(theta))*(start[0]-x)+np.sin(np.deg2rad(theta))*(start[1]-y)
+    distance = np.sqrt(np.power(y,2)+np.power(x,2))
+    # print(np.power(y,2))
     plt.subplot(1,2,1)
     plt.plot(time, error)
     # plt.xlim((0, np.max(time)))
@@ -78,10 +107,14 @@ def task9():
     plt.xlabel("Time [ms]")
     plt.ylabel(r"Error in $\theta$")
     plt.subplot(1,2,2)
-    plt.plot(time,d0)
+    plt.plot(time,d0, label=r"$d_0$")
     plt.xlabel("Time [ms]")
-    plt.ylabel(r"$d_0$")
-    # plt.savefig('plots/task8.pdf')
+    plt.legend()
+    # plt.ylabel(r"$d_0$")
+    # plt.suptitle("Both parts of the controller activated")
+    plt.tight_layout()
+    plt.savefig('plots/task9.pdf')
+    
     plt.show()
 
 def task11():
@@ -168,13 +201,37 @@ def task17():
     plt.savefig('plots/task17.pdf')
     plt.show()
 
-
-
+def task18():
+    time, x, y, theta = get_data('pos_task_18.csv')
+    plt.plot(x,y,'k',label='Actual path')
+    w_x = [-1.25,
+           -0.75,
+           -0.25,
+           -0.25,
+            0.25,
+            0.25,
+           ]
+    w_y = [1.25,
+           1.25,
+           1.25,
+           0.75,
+           0.75,
+           0.25,
+           ]
+    plt.plot(w_x,w_y,'bv',label='Waypoints')
+    plt.xlim([-1.5,1.5])
+    plt.ylim([-1.5,1.5])
+    plt.xlabel("X [m]")
+    plt.ylabel("Y [m]")
+    plt.legend()
+    plt.savefig('plots/task18.pdf')
+    plt.show()
 
 if __name__ == "__main__":
     # task6()
     # task8()
-    #task14()
+    # task14()
     task17()
-    #task9()
     # task11()
+    task9()
+

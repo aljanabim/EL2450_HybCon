@@ -26,8 +26,6 @@ case 0: // rotational controller
     {
         Serial.print("Orientation good!");
         controller = 1;
-        w = 0;
-        vel = 0;
     }
 
     // rotation
@@ -49,7 +47,7 @@ case 1: // Go-to-goal controller
     else
     {
         Serial.print("Reached goal!");
-        send_done();
+        controller = 2;
     }
 
     // translation
@@ -63,8 +61,13 @@ case 1: // Go-to-goal controller
     ydelta_rot = (y + p * sin(theta_rad) - y0) * cos(theta_goal_rad);
     w = k_psi_g2g * (xdelta_rot - ydelta_rot);
     break;
+case 2: // Stop controller
+    vel = 0;
+    w = 0;
+    Serial.print("Stopping");
+    send_done();
+    break;
 }
-
 // left and right are limited to 800
 // vel becomes huge quire quickly and should be limited
 // If limiting vel to 200 then w has up to 600 to play with but since we divide it by two effectively we have it going up to 300
@@ -76,11 +79,6 @@ else if (vel < -vel_lim)
 {
     vel = -vel_lim;
 }
-
-Serial.print(" | w ");
-Serial.print(w);
-Serial.print(" | vel ");
-Serial.print(vel);
 
 left = vel - w / 2;
 right = vel + w / 2;

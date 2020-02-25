@@ -1,5 +1,7 @@
 int xdelta;
 int ydelta;
+int xdelta_rot;
+int ydelta_rot;
 float d0;
 float theta_rad;
 float theta_full;
@@ -11,6 +13,7 @@ int vel;
 float delta_angle;
 int controller;
 
+int vel_lim = 200;
 int distance_threshold = 5;
 int angle_threshold = 1;
 int k_w = 5;
